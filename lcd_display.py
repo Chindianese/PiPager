@@ -40,6 +40,9 @@ def debug_lcd():
 def show_on_lcd(full_text):
     if len(full_text) == 0:
         print('text of length 0')
+        return
+    if full_text.isspace():
+        return
     # Main body of code
     # Remember that your sentences can only be 16 characters long!
     print("Writing to display")
