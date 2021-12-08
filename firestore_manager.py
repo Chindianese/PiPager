@@ -43,6 +43,17 @@ def get_target_uid(uid):
         print(u'No such document!')
 
 
+def get_username(uid):
+    doc_ref = db.collection('Development').document('UserData').collection('Users').document(uid)
+    doc = doc_ref.get()
+    if doc.exists:
+        data = doc.to_dict()
+        # print(f'Document data: {data}')
+        return data['displayName']
+    else:
+        print(u'No such document!')
+
+
 def init_firestore_listener(lcd_enabled_pri):
     global lcd_enabled
     lcd_enabled = lcd_enabled_pri
@@ -63,6 +74,8 @@ def init_firestore_listener(lcd_enabled_pri):
     callback_done = threading.Event()
 
     uid = uid_manager.get_uid()
+    display_name = get_username(uid)
+    print("logged in as: ", display_name)
     # Create a callback on_snapshot function to capture changes
     doc_ref = db.collection('Development').document('UserContent').collection('Users').document(uid)
 
