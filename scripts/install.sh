@@ -1,0 +1,3 @@
+echo cloning from https://github.com/Chindianese/PiPager.git...
+
+git clone https://github.com/Chindianese/PiPager.git
