@@ -4,6 +4,7 @@ import led_display
 
 
 def boot_splash():
+    print("starting splash")
     text = ""
     # lcd_display.show_on_lcd_line("   Booting...   ", 1)
     load_index = 0
@@ -23,9 +24,10 @@ def boot_splash():
         else:
             led_display.off()
         load_index += 1
-        time.sleep(0.05)
+        time.sleep(0.4)
 
     led_display.off()
+    print("done splash")
 
 
 def blink_led(dur, rep):

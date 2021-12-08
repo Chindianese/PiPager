@@ -1,3 +1,4 @@
+print('start importing firestore manager')
 import firebase_admin
 from firebase_admin import credentials
 from google.cloud import firestore
@@ -15,6 +16,7 @@ global lcd_enabled
 
 global lcd_display
 global db
+print('done importing firestore manager')
 
 
 def on_snapshot(doc_snapshot, changes, read_time):
@@ -42,12 +44,11 @@ def get_target_uid(uid):
 
 
 def init_firestore_listener(lcd_enabled_pri):
-    import firebase_admin
-    from firebase_admin import credentials
     global lcd_enabled
     lcd_enabled = lcd_enabled_pri
     if lcd_enabled:
         global lcd_display
+        print("begin import lcd")
         import lcd_display
         print('lcd display imported')
     __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
