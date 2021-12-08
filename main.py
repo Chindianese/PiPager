@@ -1,6 +1,4 @@
-import firestore_manager
 import os
-import screen_effects
 
 if __name__ == '__main__':
     print('Starting pager')
@@ -16,5 +14,9 @@ if __name__ == '__main__':
         lcd_enabled = False
         print('lcd disabled')
     if lcd_enabled:
+        import screen_effects
+        import led_display
+        led_display.init()
         screen_effects.boot_splash()
+    import firestore_manager
     firestore_manager.init_firestore_listener(lcd_enabled)

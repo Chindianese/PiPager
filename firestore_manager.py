@@ -3,17 +3,21 @@ from firebase_admin import credentials
 from google.cloud import firestore
 from firebase_admin import firestore
 import threading
+
+import os
 from time import sleep
 
+import screen_effects
 
 global currentUser
-currentUser = "Melvan"
 global callback_done
 global lcd_enabled
 
 global lcd_display
 
-import os
+currentUser = "Melvan"
+
+
 def on_snapshot(doc_snapshot, changes, read_time):
     for doc in doc_snapshot:
         print(f'Received document snapshot: {doc.id}')
@@ -21,6 +25,7 @@ def on_snapshot(doc_snapshot, changes, read_time):
         print(f'current message: {current_message}')
         if lcd_enabled:
             lcd_display.show_on_lcd(current_message)
+            screen_effects.blink_led(0.2, 2)
     callback_done.set()
 
 
