@@ -48,7 +48,7 @@ def show_on_lcd(full_text):
     print("Writing to display")
     display.lcd_clear()
     # lines = textwrap.wrap(full_text, 16, break_long_words=True)
-    lines = full_text.TextWrapper(width=16, break_long_words=False, replace_whitespace=False)
+    lines = textwrap.wrap(text=full_text, width=16, break_long_words=False, replace_whitespace=False)
     display.lcd_display_string(lines[0], 1)  # Write line of text to first line of display
     if len(lines) > 1:
         display.lcd_display_string(lines[1], 2)  # Write line of text to second line of display
