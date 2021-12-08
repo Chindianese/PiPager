@@ -20,7 +20,7 @@ def on_snapshot(doc_snapshot, changes, read_time):
         current_message = doc.to_dict()["currentMessage"]
         print(f'current message: {current_message}')
         if lcd_enabled:
-            lcd_display.show_on_lcd(current_message, "","","")
+            lcd_display.show_on_lcd(current_message)
     callback_done.set()
 
 

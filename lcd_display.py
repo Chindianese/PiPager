@@ -10,14 +10,15 @@ import sys
 sys.path.append('../drivers')
 import drivers
 from time import sleep
+import textwrap
 
 
 # Load the driver and set it to "display"
 # If you use something from the driver library use the "display." prefix first
+display = drivers.Lcd()
+
 
 def debug_lcd():
-    display = drivers.Lcd()
-
     # Main body of code
     try:
         # Remember that your sentences can only be 16 characters long!
@@ -36,12 +37,26 @@ def debug_lcd():
         display.lcd_clear()
 
 
-def show_on_lcd(string_text_1, string_text_2, string_text_3, string_text_4):
-    display = drivers.Lcd()
-
+def show_on_lcd(full_text):
+    if len(full_text) == 0:
+        print('text of length 0')
     # Main body of code
     # Remember that your sentences can only be 16 characters long!
     print("Writing to display")
-    display.lcd_display_string(string_text_1, 1)  # Write line of text to first line of display
-    display.lcd_display_string(string_text_2, 2)  # Write line of text to second line of display
-    sleep(2)  # Give time for the message to be read
+    display.lcd_clear()
+    lines = textwrap.wrap(full_text, 16, break_long_words=False)
+    display.lcd_display_string(lines[0], 1)  # Write line of text to first line of display
+    if len(lines) > 1:
+        display.lcd_display_string(lines[1], 2)  # Write line of text to second line of display
+    # sleep(2)  # Give time for the message to be read
+
+
+def show_on_lcd_line(text, line_number):
+    if len(text) == 0:
+        print('text of length 0')
+        return
+    # Main body of code
+    # Remember that your sentences can only be 16 characters long!
+    print("Writing to line: ", line_number)
+    display.lcd_display_string(text, line_number)  # Write line of text to first line of display
+    # sleep(2)  # Give time for the message to be read
