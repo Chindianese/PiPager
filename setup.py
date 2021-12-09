@@ -13,7 +13,10 @@ def copytree(src, dst, symlinks=False, ignore=None):
 
 def move_scripts():
     print("copying scripts to parent folder")
-    copytree('scripts', '../')
+    __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
+    src = os.path.join(__location__, 'scripts')
+    dst = os.path.join(__location__, '../')
+    copytree(src, dst)
 
 
 def create_lcd_enabled():
