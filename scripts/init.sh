@@ -1,2 +1,2 @@
 echo init PiPager
-python3 PiPager/init.py
+sudo python3 PiPager/init.py
