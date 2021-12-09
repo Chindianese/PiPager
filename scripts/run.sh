@@ -1,2 +1,2 @@
 echo running PiPager
-sudo python PiPager/main.py
+sudo python3 PiPager/main.py
