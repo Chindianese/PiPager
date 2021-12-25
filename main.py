@@ -12,7 +12,7 @@ global lcd_display
 global lcd_enabled
 
 global default_connection
-default_connection = "CHENG"
+default_connection = "Cheng"
 
 
 def boot_screen():
