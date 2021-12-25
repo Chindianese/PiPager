@@ -1,12 +1,14 @@
 import socket
 import subprocess
 
-def get_ip():
-    hostname = socket.gethostname()
-    local_ip = socket.gethostbyname(hostname)
 
-    # print(local_ip)
-    return local_ip
+def get_ip():
+ ip_address = '';
+ s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+ s.connect(("8.8.8.8",80))
+ ip_address = s.getsockname()[0]
+ s.close()
+ return ip_address
 
 
 def get_hostname():
