@@ -110,7 +110,7 @@ def check_uid():
 if __name__ == '__main__':
     print('Starting pager')
     print('checking for update')
-    os.system('git pull origin master')
+    # os.system('git pull origin master')
     check_lcd()
     isConnected = check_connection()
     print("Connection state", isConnected)
