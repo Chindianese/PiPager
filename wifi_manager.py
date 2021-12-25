@@ -1,8 +1,8 @@
 import socket
 import subprocess
+import os
 
-global isRPI
-isRPI = False
+import os_manager
 
 
 def get_ip():
@@ -32,9 +32,8 @@ def is_connected():
 
 
 def get_connection_name():
-    global isRPI
     try:
-        if isRPI:
+        if os_manager.isRPI:
             output = subprocess.check_output(['sudo', 'iwgetid'])
             connection_name = output.split('"')[1]
             return connection_name

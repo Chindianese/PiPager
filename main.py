@@ -1,5 +1,6 @@
 import os
 
+import os_manager
 import uid_manager
 import threading
 
@@ -45,6 +46,7 @@ def check_lcd():
             lcd_enabled = True
             print('lcd enabled')
             import_lcd_display()
+            os_manager.isRPI = True
             return True
     except IOError:
         lcd_enabled = False
