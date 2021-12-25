@@ -12,7 +12,7 @@ global lcd_display
 global lcd_enabled
 
 global default_connection
-default_connection = "Cheng"
+default_connection = "PagerDefault"
 
 
 def boot_screen():
@@ -81,7 +81,7 @@ def check_connection():
     connection_name = wifi_manager.get_connection_name()
     connected_to_default = False
     global default_connection
-    if connection_name == default_connection:
+    if connection_name.lower() == default_connection.lower():
         print("Connected to default: ", default_connection)
         connected_to_default = True
     else:
@@ -116,12 +116,11 @@ if __name__ == '__main__':
         uidPresent = check_uid()
         if uidPresent:
             boot_firestore()
-    else:
-        if isConnected == "DEFAULT":
-            ip = wifi_manager.get_ip()
-            if lcd_enabled:
-                lcd_display.show_on_lcd(ip)
-        else:
-            if isConnected == "NULL":
-                if lcd_enabled:
-                    lcd_display.show_on_lcd("No internet connection")
+    elif isConnected == "DEFAULT":
+        ip = wifi_manager.get_ip()
+        if lcd_enabled:
+            lcd_display.show_on_lcd_line("PagerDef ip", 1)
+            lcd_display.show_on_lcd_line(ip,2)
+    elif isConnected == "NULL":
+        if lcd_enabled:
+            lcd_display.show_on_lcd("No internet connection")
