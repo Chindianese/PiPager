@@ -34,10 +34,12 @@ def is_connected():
 def get_connection_name():
     try:
         if os_manager.isRPI:
+            print("checking pi wifi")
             output = subprocess.check_output(['sudo', 'iwgetid'])
             connection_name = output.split('"')[1]
             return connection_name
         else:
+            print("checking non pi wifi")
             connection_name = ""
             wifi = subprocess.check_output(['netsh', 'WLAN', 'show', 'interfaces'])
             data = wifi.decode('utf-8')

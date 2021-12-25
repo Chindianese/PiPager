@@ -1,1 +1,2 @@
+global isRPI
 isRPI = False
