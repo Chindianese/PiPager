@@ -119,7 +119,7 @@ if __name__ == '__main__':
     elif isConnected == "DEFAULT":
         ip = wifi_manager.get_ip()
         if lcd_enabled:
-            lcd_display.show_on_lcd_line("PagerDef ip", 1)
+            lcd_display.show_on_lcd_line("PagerDefault ip", 1)
             lcd_display.show_on_lcd_line(ip,2)
     elif isConnected == "NULL":
         if lcd_enabled:
