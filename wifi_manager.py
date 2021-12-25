@@ -7,10 +7,13 @@ import os_manager
 
 def get_ip():
     ip_address = ''
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    s.connect(("8.8.8.8", 80))
-    ip_address = s.getsockname()[0]
-    s.close()
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(("8.8.8.8", 80))
+        ip_address = s.getsockname()[0]
+        s.close()
+    except Exception as e:
+        print(e)
     return ip_address
 
 
@@ -49,7 +52,8 @@ def get_connection_name():
             split2 = split[split.find(':')+2:split.find('\r')]
             connection_name = split2
             return connection_name
-    except Exception as e: print(e)
+    except Exception as e:
+        print(e)
     return ""
 
 
