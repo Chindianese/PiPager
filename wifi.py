@@ -34,9 +34,11 @@ def add_wifi(ssid, psk):
 
 
 def reset_wpa():
+    dst = "/etc/wpa_supplicant/wpa_supplicant.conf"
+    print("copying template wpa to: ", dst)
     __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
-    path = os.path.join(__location__, 'wpa_supplicant.conf')
-
+    src = os.path.join(__location__, 'wpa_supplicant.conf')
+    os.replace(src, dst)
 
 
 request_event()
