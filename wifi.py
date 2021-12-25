@@ -26,8 +26,8 @@ def add_wifi(ssid, psk):
 
     with open(filename, 'r+') as f:
         text = f.read()
-        text = re.sub('defaultssid', ssid, text)
-        text = re.sub('defaultpassword', psk, text)
+        text = re.sub('defaultssid', ssid, text, 1)
+        text = re.sub('defaultpassword', psk, text, 1)
         f.seek(0)
         f.write(text)
         f.truncate()
