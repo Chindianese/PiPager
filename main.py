@@ -93,8 +93,8 @@ def check_connection():
 
     if connected_to_default:
         return "DEFAULT"
-    if not is_connected:
-        return "NULL"
+    # if not is_connected:
+        # return "NULL"
     return "CONNECTED"
 
 
