@@ -1,1 +1,2 @@
-sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
+echo setting up wifi
+python3 PiPager/wifi.py
