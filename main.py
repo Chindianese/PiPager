@@ -3,10 +3,16 @@ import os
 import uid_manager
 import threading
 
+import wifi_manager
+
 global firestore_manager
+global lcd_display
+
+global lcd_enabled
 
 
 def boot_screen():
+    global lcd_enabled
     if lcd_enabled:
         import screen_effects
         import led_display
@@ -19,35 +25,86 @@ def firebase_init():
     import firestore_manager
 
 
-if __name__ == '__main__':
-    print('Starting pager')
+def import_lcd_display():
+    global lcd_display
+    import lcd_display
+
+
+def check_lcd():
+    global lcd_enabled
+    lcd_enabled = False
+    print('checking lcd enabled')
+    try:
+        __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
+        path = os.path.join(__location__, 'lcdenabled')
+        with open(path) as f:
+            lines = f.readlines()
+            lcd_enabled = True
+            print('lcd enabled')
+            import_lcd_display()
+            return True
+    except IOError:
+        lcd_enabled = False
+        print('lcd disabled')
+        return False
+
+
+def boot_firestore():
+    t1 = threading.Thread(target=boot_screen)
+    t2 = threading.Thread(target=firebase_init)
+
+    # starting thread 1
+    t1.start()
+    # starting thread 2
+    t2.start()
+
+    # wait until thread 1 is completely executed
+    t1.join()
+    # wait until thread 2 is completely executed
+    t2.join()
+    global firestore_manager
+    global lcd_enabled
+    firestore_manager.init_firestore_listener(lcd_enabled)
+
+
+def check_connection():
+    print('checking connection')
+    hostname = wifi_manager.get_hostname()
+    ip = wifi_manager.get_ip()
+    # print("hostname: ", hostname)
+    is_connected = wifi_manager.is_connected()
+    connected_to_default = wifi_manager.check_if_on_wifi_name("SINGTEL-C8D2")
+    print("Connected to Singtel: ", connected_to_default)
+    print("Connected to internet: ", is_connected)
+    print("ip: ", ip)
+
+    if connected_to_default:
+        return "DEFAULT"
+    if not is_connected:
+        return "NULL"
+    return "CONNECTED"
+
+
+def check_uid():
     uid = uid_manager.get_uid()
     if uid == "":
         print("set up UID with Pager/init.py")
+        return False
     else:
-        lcd_enabled = False
-        print('checking lcd enabled')
-        try:
-            __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
-            path = os.path.join(__location__, 'lcdenabled')
-            with open(path) as f:
-                lines = f.readlines()
-                lcd_enabled = True
-                print('lcd enabled')
-        except IOError:
-            lcd_enabled = False
-            print('lcd disabled')
-        t1 = threading.Thread(target=boot_screen)
-        t2 = threading.Thread(target=firebase_init)
+        return True
 
-        # starting thread 1
-        t1.start()
-        # starting thread 2
-        t2.start()
 
-        # wait until thread 1 is completely executed
-        t1.join()
-        # wait until thread 2 is completely executed
-        t2.join()
-        global firestore_manager
-        firestore_manager.init_firestore_listener(lcd_enabled)
+if __name__ == '__main__':
+    print('Starting pager')
+    check_lcd()
+    isConnected = check_connection()
+    print("Connection state", isConnected)
+    if isConnected == "CONNECTED":
+        uidPresent = check_uid()
+        if uidPresent:
+            boot_firestore()
+    else:
+        if isConnected == "DEFAULT":
+            ip = wifi_manager.get_ip()
+            if lcd_enabled:
+                lcd_display.show_on_lcd(ip)
