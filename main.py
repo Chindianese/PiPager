@@ -10,6 +10,9 @@ global lcd_display
 
 global lcd_enabled
 
+global default_connection
+default_connection = "SINGTEL-C8D2"
+
 
 def boot_screen():
     global lcd_enabled
@@ -73,8 +76,16 @@ def check_connection():
     ip = wifi_manager.get_ip()
     # print("hostname: ", hostname)
     is_connected = wifi_manager.is_connected()
-    connected_to_default = wifi_manager.check_if_on_wifi_name("SINGTEL-C8D2")
-    print("Connected to Singtel: ", connected_to_default)
+    connection_name = wifi_manager.get_connection_name()
+    connected_to_default = False
+    global default_connection
+    if connection_name == default_connection:
+        print("Connected to default: ", default_connection)
+        connected_to_default = True
+    else:
+        connected_to_default = False
+        print("Connected to: ", connection_name)
+
     print("Connected to internet: ", is_connected)
     print("ip: ", ip)
 

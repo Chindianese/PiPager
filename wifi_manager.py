@@ -1,14 +1,17 @@
 import socket
 import subprocess
 
+global isRPI
+isRPI = False
+
 
 def get_ip():
- ip_address = '';
- s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
- s.connect(("8.8.8.8",80))
- ip_address = s.getsockname()[0]
- s.close()
- return ip_address
+    ip_address = ''
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.connect(("8.8.8.8", 80))
+    ip_address = s.getsockname()[0]
+    s.close()
+    return ip_address
 
 
 def get_hostname():
@@ -28,10 +31,29 @@ def is_connected():
     return False
 
 
+def get_connection_name():
+    global isRPI
+    try:
+        if isRPI:
+            output = subprocess.check_output(['sudo', 'iwgetid'])
+            connection_name = output.split('"')[1]
+            return connection_name
+        else:
+            connection_name = ""
+            wifi = subprocess.check_output(['netsh', 'WLAN', 'show', 'interfaces'])
+            data = wifi.decode('utf-8')
+            split = data[data.find('SSID'):]
+            split2 = split[split.find(':')+2:split.find('\r')]
+            connection_name = split2
+            return connection_name
+    except:
+        print('get connection name exception')
+    return ""
+
+
 def check_if_on_wifi_name(wifi_name):
-    wifi = subprocess.check_output(['netsh', 'WLAN', 'show', 'interfaces'])
-    data = wifi.decode('utf-8')
-    if wifi_name in data:
-       return True
-    else:
-       return False
+    connection_name = get_connection_name()
+    if wifi_name == connection_name:
+        return True
+
+    return False
