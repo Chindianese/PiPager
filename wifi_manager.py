@@ -35,8 +35,10 @@ def get_connection_name():
     try:
         if os_manager.isRPI:
             print("checking pi wifi")
-            output = subprocess.check_output(['sudo', 'iwgetid'])
-            connection_name = output.split('"')[1]
+            data = subprocess.check_output(['sudo', 'iwgetid'])
+            print(data)
+            wifi = data.decode('utf-8')
+            connection_name = wifi.split('"')[1]
             return connection_name
         else:
             print("checking non pi wifi")
@@ -47,8 +49,7 @@ def get_connection_name():
             split2 = split[split.find(':')+2:split.find('\r')]
             connection_name = split2
             return connection_name
-    except:
-        print('get connection name exception')
+    except Exception as e: print(e)
     return ""
 
 
