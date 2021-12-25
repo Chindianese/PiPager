@@ -12,7 +12,7 @@ global lcd_display
 global lcd_enabled
 
 global default_connection
-default_connection = "SINGTEL-C8D2"
+default_connection = "CHENG"
 
 
 def boot_screen():
@@ -121,3 +121,7 @@ if __name__ == '__main__':
             ip = wifi_manager.get_ip()
             if lcd_enabled:
                 lcd_display.show_on_lcd(ip)
+        else:
+            if isConnected == "NULL":
+                if lcd_enabled:
+                    lcd_display.show_on_lcd("No internet connection")
