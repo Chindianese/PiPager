@@ -68,6 +68,9 @@ def init_firestore_listener(lcd_enabled_pri):
     lcd_enabled = lcd_enabled_pri
     if lcd_enabled:
         global lcd_display
+        global screen_effects
+        global led_display
+
         print("begin import lcd")
         import lcd_display
         import screen_effects
