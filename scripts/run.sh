@@ -1,2 +1,5 @@
+#!/bin/bash
+
 echo running PiPager
-sudo python3 PiPager/main.py
+git pull origin master
+sudo /usr/bin/python3 /home/pi/PiPager/main.py > /home/pi/PiPager/pager.log 2>&1 &
