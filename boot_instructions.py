@@ -1,4 +1,4 @@
-print("HELLO!")
+print("HELLO!-----------------")
 print("enter 'sh wifi.sh' to set up wifi")
 print("enter 'sh init.sh' to set up UID. << You need to set up UID of your account "
       "for the device to work. You'll get more instructions after entering 'sh init.sh'")
