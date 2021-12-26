@@ -13,8 +13,10 @@ import uid_manager
 global currentUser
 global callback_done
 global lcd_enabled
+global screen_effects
 
 global lcd_display
+global led_display
 global db
 print('done importing firestore manager')
 
@@ -22,12 +24,19 @@ print('done importing firestore manager')
 def on_snapshot(doc_snapshot, changes, read_time):
     for doc in doc_snapshot:
         print(f'Received document snapshot: {doc.id}')
-        current_message = doc.to_dict()["currentMessage"]
+        dict = doc.to_dict()
+        current_message = "~no message~"
+        if "currentMessage" in dict.keys():
+            current_message = dict["currentMessage"]
+        other_req_attention = False
+        if "otherReqAttention" in dict.keys():
+            other_req_attention = dict["otherReqAttention"]
         print(f'current message: {current_message}')
+        print(f'otherReqAttention: {other_req_attention}')
         if lcd_enabled:
             lcd_display.show_on_lcd(current_message)
-            import screen_effects
-            screen_effects.blink_led(0.2, 2)
+            led_display.on()
+            screen_effects.blink_led(0.2, 2, other_req_attention)
     callback_done.set()
 
 
@@ -61,6 +70,8 @@ def init_firestore_listener(lcd_enabled_pri):
         global lcd_display
         print("begin import lcd")
         import lcd_display
+        import screen_effects
+        import led_display
         print('lcd display imported')
     __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
     path = os.path.join(__location__, 'LDMessageServiceAccountKey.json')
