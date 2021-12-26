@@ -35,7 +35,7 @@ def boot_splash():
 
 
 def blink_led(dur, rep, init_state):
-    trigger = init_state
+    trigger = not init_state
     for index in range(rep*2):
         led_display.set(trigger)
         trigger = not trigger
