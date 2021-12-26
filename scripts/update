@@ -1,10 +1,9 @@
-
-
 echo pulling from master...
 cd /home/pi/PiPager
 sleep 5
+git fetch
 git reset --hard
-# git pull origin master
-git remote set-url origin https://github.com/Chindianese/PiPager.git
+git pull origin master
+# git remote set-url origin https://github.com/Chindianese/PiPager.git
 sudo python3 setup.py
 cd ../
