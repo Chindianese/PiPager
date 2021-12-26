@@ -1,17 +1,21 @@
 import lcd_display
 import time
 import led_display
+import version_number
 
 
 def boot_splash():
     print("starting splash")
-    text = ""
+    bottom_row = ""
     # lcd_display.show_on_lcd_line("   Booting...   ", 1)
     load_index = 0
     dot_index = 0
     for index in range(16):
-        text += "."
-        lcd_display.show_on_lcd_line(text, 2)
+        if index < len(version_number.version):
+            bottom_row += version_number.version[index]
+        else:
+            bottom_row += "."
+        lcd_display.show_on_lcd_line(bottom_row, 2)
         if load_index % 2:
             led_display.on()
             if dot_index % 3 == 0:
