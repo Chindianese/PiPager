@@ -32,7 +32,7 @@ def add_wifi(ssid, psk):
         f.write(text)
         f.truncate()
     print('Wifi added')
-    print("Type 'sudo reboot' restart the device. Disable hotspot AFTER typing 'sudo reboot'")
+    print("Type 'sh reboot' restart the device. Disable hotspot AFTER typing 'sudo reboot'")
 
 
 def reset_wpa():
