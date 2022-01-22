@@ -1,6 +1,6 @@
 import re
 import os
-
+import shutil
 
 def request_event():
     op = input("Enter\n1 to add wifi. \n2 to reset all connections\nx to exit\n")
@@ -40,7 +40,7 @@ def reset_wpa():
     print("copying template wpa to: ", dst)
     __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
     src = os.path.join(__location__, 'wpa_supplicant.conf')
-    os.replace(src, dst)
+    shutil.copyfile(src, dst)
 
 
 request_event()
