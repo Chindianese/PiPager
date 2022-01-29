@@ -26,7 +26,7 @@ def boot_screen():
 
 def firebase_init():
     global firestore_manager
-   import firestore_manager
+    import firestore_manager
 
 
 def import_lcd_display():
