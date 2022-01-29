@@ -51,6 +51,7 @@ def check_lcd():
     except IOError:
         lcd_enabled = False
         print('lcd disabled')
+        os_manager.isRPI = False
         return False
 
 

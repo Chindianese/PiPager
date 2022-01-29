@@ -1,2 +1,2 @@
 global isRPI
-isRPI = False
+isRPI = True
