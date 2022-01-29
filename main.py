@@ -122,6 +122,7 @@ if __name__ == '__main__':
     print("Connection state", isConnected)
     if isConnected == "NO CONNECTION":
         if lcd_enabled:
+            print("NO CONNECTION, check tutorial")
             lcd_display.show_on_lcd_line("NO CONNECTION", 1)
             lcd_display.show_on_lcd_line("Check tutorial", 2)
 
