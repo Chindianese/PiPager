@@ -8,6 +8,9 @@ print("enter 'sh init' to set up UID. << You need to set up UID of your account 
 print("enter 'sh update' to update pager software. It should only take about 10 seconds. ")
 print("enter 'sh reboot' to restart device")
 
+global default_connection
+default_connection = "PagerDefault"
+
 
 def check_connection():
     print('checking connection')
