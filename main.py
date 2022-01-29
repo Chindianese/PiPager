@@ -76,10 +76,14 @@ def boot_firestore():
 def check_connection():
     print('checking connection')
     hostname = wifi_manager.get_hostname()
+    print("hostname: ", hostname)
     ip = wifi_manager.get_ip()
-    # print("hostname: ", hostname)
+    if ip == "NULL":
+        return "NO CONNECTION"
+
     is_connected = wifi_manager.is_connected()
     connection_name = wifi_manager.get_connection_name()
+    print("connection_name: ", connection_name)
     connected_to_default = False
     global default_connection
     if connection_name.lower() == default_connection.lower():
@@ -99,6 +103,7 @@ def check_connection():
     return "CONNECTED"
 
 
+
 def check_uid():
     uid = uid_manager.get_uid()
     if uid == "":
@@ -115,7 +120,12 @@ if __name__ == '__main__':
     check_lcd()
     isConnected = check_connection()
     print("Connection state", isConnected)
-    if isConnected == "CONNECTED":
+    if isConnected == "NO CONNECTION":
+        if lcd_enabled:
+            lcd_display.show_on_lcd_line("NO CONNECTION", 1)
+            lcd_display.show_on_lcd_line("Check tutorial", 2)
+
+    elif isConnected == "CONNECTED":
         uidPresent = check_uid()
         if uidPresent:
             boot_firestore()

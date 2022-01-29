@@ -15,8 +15,11 @@ default_connection = "PagerDefault"
 def check_connection():
     print('checking connection')
     hostname = wifi_manager.get_hostname()
-    ip = wifi_manager.get_ip()
     print("hostname: ", hostname)
+    ip = wifi_manager.get_ip()
+    if ip == "NULL":
+        return "NO CONNECTION"
+
     is_connected = wifi_manager.is_connected()
     connection_name = wifi_manager.get_connection_name()
     print("connection_name: ", connection_name)

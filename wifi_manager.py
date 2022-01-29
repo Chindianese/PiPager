@@ -14,6 +14,7 @@ def get_ip():
         s.close()
     except Exception as e:
         print(e)
+        return "NULL"
     return ip_address
 
 
