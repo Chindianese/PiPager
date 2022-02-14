@@ -9,7 +9,7 @@ import os
 from time import sleep
 
 import uid_manager
-
+import textwrap
 global currentUser
 global callback_done
 global lcd_enabled
@@ -33,6 +33,7 @@ def on_snapshot(doc_snapshot, changes, read_time):
             other_req_attention = dict["otherReqAttention"]
         print(f'current message: {current_message}')
         print(f'otherReqAttention: {other_req_attention}')
+
         if lcd_enabled:
             lcd_display.show_on_lcd(current_message)
             led_display.on()
