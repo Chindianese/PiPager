@@ -1,2 +1,2 @@
 global version
-version = "0.1.2.5"
+version = "0.1.2.6"
