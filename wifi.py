@@ -2,6 +2,7 @@ import re
 import os
 import shutil
 
+
 def request_event():
     op = input("Enter\n1 to add wifi. \n2 to reset all connections\nx to exit\n")
     if op == "1":

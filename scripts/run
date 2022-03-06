@@ -2,4 +2,5 @@
 
 echo running PiPager
 sh update
+sudo /usr/bin/python3 /home/pi/PiPager/resetWifi.py
 sudo /usr/bin/python3 /home/pi/PiPager/main.py > /home/pi/PiPager/pager.log 2>&1 &
